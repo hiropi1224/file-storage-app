@@ -12,6 +12,8 @@
     "generate": "plop"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.29.12",
+    "convex": "^1.11.0",
     "next": "14.2.1",
     "react": "^18",
     "react-dom": "^18"
