@@ -14,6 +14,8 @@ export const createFile = mutation({
       throw new Error("you must be logged in upload a file");
     }
 
+    identity.tokenIdentifier;
+
     await ctx.db.insert("files", {
       name: args.name,
       orgId: args.orgId,
