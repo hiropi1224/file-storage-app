@@ -3,6 +3,7 @@
 import { useOrganization, useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "convex/react";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -145,7 +146,16 @@ export default function Home() {
                     </FormItem>
                   )}
                 />
-                <Button type='submit'>Submit</Button>
+                <Button
+                  type='submit'
+                  disabled={form.formState.isSubmitting}
+                  className='flex gap-1'
+                >
+                  {form.formState.isSubmitting && (
+                    <Loader2 className='size-4 animate-spin' />
+                  )}
+                  Submit
+                </Button>
               </form>
             </Form>
           </DialogContent>
