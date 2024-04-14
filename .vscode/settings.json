@@ -10,5 +10,13 @@
   "files.encoding": "utf8",
   "files.eol": "\n",
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "cSpell.words": ["clsx", "lucide", "nextjs", "svix", "tailwindcss", "trpc"]
+  "cSpell.words": [
+    "clsx",
+    "hookform",
+    "lucide",
+    "nextjs",
+    "svix",
+    "tailwindcss",
+    "trpc"
+  ]
 }
