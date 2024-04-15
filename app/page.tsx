@@ -2,6 +2,7 @@
 
 import { useOrganization, useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
+import { Loader2 } from "lucide-react";
 import Image from "next/image";
 
 import { FileCard } from "~/app/_components/file-card";
@@ -19,10 +20,18 @@ export default function Home() {
   }
 
   const files = useQuery(api.files.getFiles, orgId ? { orgId } : "skip");
+  const isLoading = files === undefined;
 
   return (
     <main className='container mx-auto pt-12'>
-      {files && files.length === 0 && (
+      {isLoading && (
+        <div className='flex w-full flex-col items-center gap-8'>
+          <Loader2 className='size-32 animate-spin text-gray-500' />
+          <div className='text-2xl'>Loading your images...</div>
+        </div>
+      )}
+
+      {!isLoading && files.length === 0 && (
         <div className='flex w-full flex-col items-center gap-8'>
           <Image
             src='/empty.svg'
@@ -34,7 +43,7 @@ export default function Home() {
           <UploadButton />
         </div>
       )}
-      {files && files.length > 0 && (
+      {!isLoading && files.length > 0 && (
         <>
           <div className='flex items-center justify-between'>
             <h1 className='pb-4 text-4xl font-bold'>Your Files</h1>
