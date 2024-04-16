@@ -1,6 +1,13 @@
 import { useMutation } from "convex/react";
-import { MoreVertical, TrashIcon } from "lucide-react";
-import { useState } from "react";
+import {
+  FileTextIcon,
+  GanttChartIcon,
+  ImageIcon,
+  MoreVertical,
+  TrashIcon,
+} from "lucide-react";
+import Image from "next/image";
+import { ReactNode, useState } from "react";
 
 import {
   AlertDialog,
@@ -28,28 +35,48 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { useToast } from "~/components/ui/use-toast";
 import { api } from "~/convex/_generated/api";
-import { Doc } from "~/convex/_generated/dataModel";
+import { Doc, Id } from "~/convex/_generated/dataModel";
 
 type Props = {
   file: Doc<"files">;
 };
 
+function getFileUrl(fileId: Id<"_storage">) {
+  return `${process.env.NEXT_PUBLIC_CONVEX_URL}/api/storage/${fileId}`;
+}
+
 export function FileCard({ file }: Props) {
+  const typeIcons = {
+    image: <ImageIcon />,
+    pdf: <FileTextIcon />,
+    csv: <GanttChartIcon />,
+  } as Record<Doc<"files">["type"], ReactNode>;
+
   return (
     <Card>
       <CardHeader className='relative'>
-        <CardTitle>
+        <CardTitle className='flex gap-2'>
+          <div>{typeIcons[file.type]}</div>
           {file.name}
-          <div className='absolute right-2 top-2'>
+          <div className='absolute right-2 top-4'>
             <FileCardAction file={file} />
           </div>
         </CardTitle>
         {/* <CardDescription>Card Description</CardDescription> */}
       </CardHeader>
-      <CardContent>
-        <p>Card Content</p>
+      <CardContent className='flex h-[200px] items-center justify-center'>
+        {file.type === "image" && (
+          <Image
+            alt={file.name}
+            width={200}
+            height={200}
+            src={getFileUrl(file.fileId)}
+          />
+        )}
+        {file.type === "csv" && typeIcons["csv"]}
+        {file.type === "pdf" && typeIcons["pdf"]}
       </CardContent>
-      <CardFooter>
+      <CardFooter className='flex justify-center'>
         <Button>Download</Button>
       </CardFooter>
     </Card>
