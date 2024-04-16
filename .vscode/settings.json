@@ -12,6 +12,7 @@
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "cSpell.words": [
     "clsx",
+    "Gantt",
     "hookform",
     "lucide",
     "nextjs",
