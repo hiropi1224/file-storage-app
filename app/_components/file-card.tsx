@@ -77,7 +77,13 @@ export function FileCard({ file }: Props) {
         {file.type === "pdf" && typeIcons["pdf"]}
       </CardContent>
       <CardFooter className='flex justify-center'>
-        <Button>Download</Button>
+        <Button
+          onClick={() => {
+            window.open(getFileUrl(file.fileId));
+          }}
+        >
+          Download
+        </Button>
       </CardFooter>
     </Card>
   );
